@@ -14,12 +14,10 @@ namespace FirstProject_WinForm
 {
     public partial class Sign_up : Form, IUserView
     {
-        Start start;
         public Sign_up(Start start)
         {
             InitializeComponent();
             UserPresenter = start.UserPresenter;
-            this.start = start;
         }
 
         public string Login { get => loginTextBox.Text; set => loginTextBox.Text = value; }
@@ -44,7 +42,7 @@ namespace FirstProject_WinForm
             bool loginError = false, loginUsed = false, nameError = false, surnameError = false, passError = false;
             if (loginTextBox.Text != String.Empty)
             {
-                if (start.UserPresenter.CheckUser(loginTextBox.Text, null))
+                if (UserPresenter.CheckUser(loginTextBox.Text, null))
                 {
                     errorLoginLabel.Text = "*This login is used";
                     loginUsed = true;
@@ -69,7 +67,7 @@ namespace FirstProject_WinForm
 
             if (!loginError && !loginUsed && !nameError && !surnameError && !passError)
             {
-                start.UserPresenter.NewUser(new User(loginTextBox.Text, passTextBox.Text, nameTextBox.Text, surnameTextBox.Text));
+                UserPresenter.NewUser(new User(loginTextBox.Text, passTextBox.Text, nameTextBox.Text, surnameTextBox.Text));
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
